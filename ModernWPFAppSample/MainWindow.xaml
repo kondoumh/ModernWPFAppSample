@@ -5,8 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ModernWPFAppSample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="528.088" Width="911.176">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Background="Black" >
+            <TextBlock Text="{Binding Title, TargetNullValue=No Rss Feed}" FontSize="14" Foreground="Lime" Padding="10, 5" />
+            <TextBlock Text="{Binding Discription}" Foreground="White" Padding="10, 5" />
+            <TextBlock Text="{Binding LastUpdateTime, StringFormat=LastUpdate : yyyy/MM/dd, ConverterCulture=ja-JP}" Foreground="Yellow" Padding="10, 5" />
+        </StackPanel>
+
+        <ListBox x:Name="RSSListBox"
+                 Grid.Row="1"
+                 ItemsSource="{Binding Items}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Background="Black"
+                 MouseDoubleClick="RSSListBox_MouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Title}" FontSize="14"
+                                   TextWrapping="Wrap" Foreground="Lime" Padding="5,3,5,1" />
+                        <TextBlock Text="{Binding PubDate, StringFormat=Posted : yyyy/MM/dd HH:mm:dd, ConverterCulture=ja_JP}"
+                                   TextWrapping="Wrap" Foreground="Yellow" Padding="5,1,5,2" />
+                        <TextBlock Text="{Binding Summary}"
+                                   TextWrapping="Wrap" Foreground="White" Padding="5,1,5,3" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Url}"
+                     Background="Black" Foreground="White" />
+            <Button Grid.Column="1" HorizontalContentAlignment="Right"
+                    Content="Update" Command="{Binding GetRSS}" />
+        </Grid>
     </Grid>
 </Window>

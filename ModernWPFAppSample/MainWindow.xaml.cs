@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ModernWPFAppSample.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ModernWPFAppSample
 {
@@ -23,6 +13,14 @@ namespace ModernWPFAppSample
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void RSSListBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            RSSViewModel vm = new RSSViewModel();
+            vm.Title = "hoge";
+            vm.Description = "HogeHoge";
+            vm.PubDate = System.DateTime.Now;
         }
     }
 }
