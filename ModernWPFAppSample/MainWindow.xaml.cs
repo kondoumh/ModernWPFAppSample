@@ -1,4 +1,5 @@
 ﻿using ModernWPFAppSample.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,10 +18,11 @@ namespace ModernWPFAppSample
 
         private void RSSListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            RSSViewModel vm = new RSSViewModel();
-            vm.Title = "hoge";
-            vm.Description = "HogeHoge";
-            vm.PubDate = System.DateTime.Now;
+            var content = new RSSViewModel.RSSContent();
+            content.Title = "hoge";
+            content.PubDate = DateTime.Now;
+            content.Summary = "hogehoge";
+            rssViewModel.Items.Add(content);
         }
     }
 }

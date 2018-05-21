@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ModernWPFAppSample"
+        xmlns:local="clr-namespace:ModernWPFAppSample.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="528.088" Width="911.176">
+    <Window.DataContext>
+        <local:RSSViewModel x:Name="rssViewModel"
+                            Url="http://chronoir.net/feed/"/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -15,7 +19,8 @@
         <StackPanel Grid.Row="0" Background="Black" >
             <TextBlock Text="{Binding Title, TargetNullValue=No Rss Feed}" FontSize="14" Foreground="Lime" Padding="10, 5" />
             <TextBlock Text="{Binding Discription}" Foreground="White" Padding="10, 5" />
-            <TextBlock Text="{Binding LastUpdateTime, StringFormat=LastUpdate : yyyy/MM/dd, ConverterCulture=ja-JP}" Foreground="Yellow" Padding="10, 5" />
+            <TextBlock Text="{Binding LastUpdatedTime, StringFormat=yyyy/MM/dd HH:mm:ss, ConverterCulture=en-US}"
+                       Foreground="Yellow" Padding="10, 5" />
         </StackPanel>
 
         <ListBox x:Name="RSSListBox"
@@ -29,7 +34,7 @@
                     <StackPanel>
                         <TextBlock Text="{Binding Title}" FontSize="14"
                                    TextWrapping="Wrap" Foreground="Lime" Padding="5,3,5,1" />
-                        <TextBlock Text="{Binding PubDate, StringFormat=Posted : yyyy/MM/dd HH:mm:dd, ConverterCulture=ja_JP}"
+                        <TextBlock Text="{Binding PubDate, StringFormat=yyyy/MM/dd HH:mm:ss, ConverterCulture=en-US}"
                                    TextWrapping="Wrap" Foreground="Yellow" Padding="5,1,5,2" />
                         <TextBlock Text="{Binding Summary}"
                                    TextWrapping="Wrap" Foreground="White" Padding="5,1,5,3" />
