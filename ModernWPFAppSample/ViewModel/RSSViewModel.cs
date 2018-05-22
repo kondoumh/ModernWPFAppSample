@@ -1,30 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace ModernWPFAppSample.ViewModel
 {
-    class RSSViewModel
+    class RSSViewModel : INotifyPropertyChanged
     {
         public RSSViewModel()
         {
             Items = new ObservableCollection<RSSContent>();
         }
-        public String Title { get; set; }
         public string Url { get; set; }
-        public string Description { get; set; }
-        public DateTime LastUpdatedTime { get; set; }
+        private string _title;
+        public string Title { get { return _title; } set { _title = value; NotifyPropertyChanged(nameof(Title)); } }
+        private string _description;
+        public string Description { get { return _description; } set { _description = value; NotifyPropertyChanged(nameof(Description)); } }
+        private DateTime _lastUpdatedTime;
+        public DateTime LastUpdatedTime { get { return _lastUpdatedTime; } set { _lastUpdatedTime = value; NotifyPropertyChanged(nameof(LastUpdatedTime)); } }
         public class RSSContent
         {
-            public String Title { get; set; }
-            public String Summary { get; set; }
+            public string Title { get; set; }
+            public string Summary { get; set; }
             public DateTime PubDate { get; set; }
-            public String link { get; set; }
+            public string link { get; set; }
         }
 
         public ObservableCollection<RSSContent> Items { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

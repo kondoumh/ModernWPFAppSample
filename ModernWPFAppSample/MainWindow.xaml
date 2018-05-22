@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Background="Black" >
             <TextBlock Text="{Binding Title, TargetNullValue=No Rss Feed}" FontSize="14" Foreground="Lime" Padding="10, 5" />
-            <TextBlock Text="{Binding Discription}" Foreground="White" Padding="10, 5" />
+            <TextBlock Text="{Binding Description}" Foreground="White" Padding="10, 5" />
             <TextBlock Text="{Binding LastUpdatedTime, StringFormat=yyyy/MM/dd HH:mm:ss, ConverterCulture=en-US}"
                        Foreground="Yellow" Padding="10, 5" />
         </StackPanel>

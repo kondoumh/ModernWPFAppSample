@@ -19,6 +19,9 @@ namespace ModernWPFAppSample
         private void RSSListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var content = new RSSViewModel.RSSContent();
+            rssViewModel.Title = "Dummy Title";
+            rssViewModel.Description = "Dummy Description....";
+            rssViewModel.LastUpdatedTime = DateTime.Now;
             content.Title = "hoge";
             content.PubDate = DateTime.Now;
             content.Summary = "hogehoge";
