@@ -7,10 +7,6 @@ namespace ModernWPFAppSample.ViewModel
 {
     class RSSViewModel : INotifyPropertyChanged
     {
-        public RSSViewModel()
-        {
-            Items = new ObservableCollection<RSSContent>();
-        }
         public string Url { get; set; }
         private string _title;
         public string Title { get { return _title; } set { _title = value; NotifyPropertyChanged(nameof(Title)); } }
@@ -26,7 +22,8 @@ namespace ModernWPFAppSample.ViewModel
             public string link { get; set; }
         }
 
-        public ObservableCollection<RSSContent> Items { get; set; }
+        private ObservableCollection<RSSContent> _items;
+        public ObservableCollection<RSSContent> Items { get { return _items ?? (_items = new ObservableCollection<RSSContent>()); } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
