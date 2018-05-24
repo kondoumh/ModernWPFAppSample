@@ -51,7 +51,7 @@
                      Background="Black" Foreground="White" />
             <Button Grid.Column="1" HorizontalContentAlignment="Right"
                     Content="Update"
-                    Command="{Binding GetCommand}"
+                    Command="{Binding FetchCommand}"
                     />
         </Grid>
     </Grid>

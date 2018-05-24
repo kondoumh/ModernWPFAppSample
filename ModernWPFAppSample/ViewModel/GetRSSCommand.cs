@@ -9,13 +9,13 @@ using System.Xml;
 
 namespace ModernWPFAppSample.ViewModel
 {
-    class GetRSSCommand : ICommand
+    class FetchRSSCommand : ICommand
     {
         private RSSViewModel _vm;
 
         public event EventHandler CanExecuteChanged;
 
-        public GetRSSCommand(RSSViewModel vm)
+        public FetchRSSCommand(RSSViewModel vm)
         {
             _vm = vm;
         }

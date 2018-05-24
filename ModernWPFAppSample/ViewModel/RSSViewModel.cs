@@ -31,12 +31,12 @@ namespace ModernWPFAppSample.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private GetRSSCommand _getCommand;
-        public GetRSSCommand GetCommand
+        private FetchRSSCommand _fetchCommand;
+        public FetchRSSCommand FetchCommand
         {
             get
             {
-                return _getCommand ?? (_getCommand = new GetRSSCommand(this));
+                return _fetchCommand ?? (_fetchCommand = new FetchRSSCommand(this));
             }
         }
     }
