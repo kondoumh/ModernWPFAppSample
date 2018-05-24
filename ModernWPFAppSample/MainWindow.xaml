@@ -50,7 +50,9 @@
             <TextBox Grid.Column="0" Text="{Binding Url}"
                      Background="Black" Foreground="White" />
             <Button Grid.Column="1" HorizontalContentAlignment="Right"
-                    Content="Update" Command="{Binding GetRSS}" />
+                    Content="Update"
+                    Command="{Binding GetRSSCommand}"
+                    />
         </Grid>
     </Grid>
 </Window>
