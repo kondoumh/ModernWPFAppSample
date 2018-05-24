@@ -27,10 +27,10 @@ namespace ModernWPFAppSample.ViewModel
 
         public void Execute(object parameter)
         {
-            GetRss();
+            FetchRSSFeed();
         }
 
-        private void GetRss()
+        private void FetchRSSFeed()
         {
             using (var reader = XmlReader.Create(_vm.Url))
             {
