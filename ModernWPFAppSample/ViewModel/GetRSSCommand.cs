@@ -11,7 +11,14 @@ namespace ModernWPFAppSample.ViewModel
 {
     class GetRSSCommand : ICommand
     {
+        private RSSViewModel _vm;
+
         public event EventHandler CanExecuteChanged;
+
+        public GetRSSCommand(RSSViewModel vm)
+        {
+            _vm = vm;
+        }
 
         public bool CanExecute(object parameter)
         {
@@ -20,20 +27,21 @@ namespace ModernWPFAppSample.ViewModel
 
         public void Execute(object parameter)
         {
-            GetRss((RSSViewModel)parameter);
+            GetRss();
         }
 
-        private void GetRss(RSSViewModel vm)
+        private void GetRss()
         {
-            using (var reader = XmlReader.Create("http://chronoir.net/feed/"))
+            using (var reader = XmlReader.Create(_vm.Url))
             {
                 var feed = SyndicationFeed.Load(reader);
-                vm.Title = feed.Title.Text;
-                vm.Description = feed.Description.Text;
-                vm.LastUpdatedTime = feed.LastUpdatedTime.DateTime;
+                _vm.Title = feed.Title.Text;
+                _vm.Description = feed.Description.Text;
+                _vm.LastUpdatedTime = feed.LastUpdatedTime.DateTime;
+
                 foreach (var item in feed.Items)
                 {
-                    vm.Items.Add(new RSSViewModel.RSSContent
+                    _vm.Items.Add(new RSSViewModel.RSSContent
                     {
                         Title = item.Title.Text,
                         Summary = item.Summary.Text,

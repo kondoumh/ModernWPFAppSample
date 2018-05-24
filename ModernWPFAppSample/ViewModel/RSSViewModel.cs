@@ -36,7 +36,7 @@ namespace ModernWPFAppSample.ViewModel
         {
             get
             {
-                return _getCommand ?? (_getCommand = new GetRSSCommand());
+                return _getCommand ?? (_getCommand = new GetRSSCommand(this));
             }
         }
     }
