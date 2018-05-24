@@ -19,7 +19,7 @@ namespace ModernWPFAppSample.ViewModel
             public string Title { get; set; }
             public string Summary { get; set; }
             public DateTime PubDate { get; set; }
-            public string link { get; set; }
+            public string Link { get; set; }
         }
 
         private ObservableCollection<RSSContent> _items;

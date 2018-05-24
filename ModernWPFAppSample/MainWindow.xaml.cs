@@ -1,5 +1,6 @@
 ﻿using ModernWPFAppSample.ViewModel;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,14 +19,10 @@ namespace ModernWPFAppSample
 
         private void RSSListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            var content = new RSSViewModel.RSSContent();
-            rssViewModel.Title = "Dummy Title";
-            rssViewModel.Description = "Dummy Description....";
-            rssViewModel.LastUpdatedTime = DateTime.Now;
-            content.Title = "hoge";
-            content.PubDate = DateTime.Now;
-            content.Summary = "hogehoge";
-            rssViewModel.Items.Add(content);
+            if (rssViewModel.Items.Count > 0)
+            {
+                System.Diagnostics.Trace.WriteLine(rssViewModel.Items[RSSListBox.SelectedIndex].Link);
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ namespace ModernWPFAppSample.ViewModel
                         Title = item.Title.Text,
                         Summary = item.Summary.Text,
                         PubDate = item.PublishDate.DateTime,
-                        link = item.Id
+                        Link = item.Id
                     });
                 }
             }
