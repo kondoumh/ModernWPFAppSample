@@ -27,21 +27,15 @@ namespace ModernWPFAppSample.ViewModel
 
         public async void Execute(object parameter)
         {
-            await FetchRSSFeedAsync();
-        }
-
-        private async Task FetchRSSFeedAsync()
-        {
-            var result = await Task.Run(() => FetchRSS());
-            foreach (var item in result)
+            var contents = await Task.Run(() => FetchRssAsync());
+            foreach (var content in contents)
             {
-                _vm.Items.Add(item);
+                _vm.Items.Add(content);
             }
         }
 
-        private Task<List<RSSViewModel.RSSContent>> FetchRSS()
+        private Task<List<RSSViewModel.RSSContent>> FetchRssAsync()
         {
-            var result = new List<RSSViewModel.RSSContent>();
             using (var reader = XmlReader.Create(_vm.Url))
             {
                 var feed = SyndicationFeed.Load(reader);
@@ -49,18 +43,16 @@ namespace ModernWPFAppSample.ViewModel
                 _vm.Description = feed.Description.Text;
                 _vm.LastUpdatedTime = feed.LastUpdatedTime.DateTime;
 
-                foreach (var item in feed.Items)
-                {
-                    result.Add(new RSSViewModel.RSSContent
-                    {
-                        Title = item.Title.Text,
-                        Summary = item.Summary.Text,
-                        PubDate = item.PublishDate.DateTime,
-                        Link = item.Id
-                    });
-                }
+                var result = (from f in feed.Items
+                              select new RSSViewModel.RSSContent()
+                              {
+                                  Title = f.Title.Text,
+                                  Summary = f.Summary.Text,
+                                  PubDate = f.PublishDate.DateTime,
+                                  Link = f.Id
+                              }).ToList();
+                return Task.FromResult(result);
             }
-            return Task.FromResult(result);
         }
     }
 }
