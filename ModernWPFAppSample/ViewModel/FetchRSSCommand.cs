@@ -25,13 +25,23 @@ namespace ModernWPFAppSample.ViewModel
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            FetchRSSFeed();
+            await FetchRSSFeedAsync();
         }
 
-        private void FetchRSSFeed()
+        private async Task FetchRSSFeedAsync()
         {
+            var result = await Task.Run(() => FetchRSS());
+            foreach (var item in result)
+            {
+                _vm.Items.Add(item);
+            }
+        }
+
+        private Task<List<RSSViewModel.RSSContent>> FetchRSS()
+        {
+            var result = new List<RSSViewModel.RSSContent>();
             using (var reader = XmlReader.Create(_vm.Url))
             {
                 var feed = SyndicationFeed.Load(reader);
@@ -41,7 +51,7 @@ namespace ModernWPFAppSample.ViewModel
 
                 foreach (var item in feed.Items)
                 {
-                    _vm.Items.Add(new RSSViewModel.RSSContent
+                    result.Add(new RSSViewModel.RSSContent
                     {
                         Title = item.Title.Text,
                         Summary = item.Summary.Text,
@@ -50,6 +60,7 @@ namespace ModernWPFAppSample.ViewModel
                     });
                 }
             }
+            return Task.FromResult(result);
         }
     }
 }
