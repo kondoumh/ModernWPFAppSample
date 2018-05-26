@@ -13,7 +13,18 @@ namespace ModernWPFAppSample.ViewModel
     {
         private RSSViewModel _vm;
 
-        public event EventHandler CanExecuteChanged;
+        private bool _fetching = false;
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
 
         public FetchRSSCommand(RSSViewModel vm)
         {
@@ -22,16 +33,20 @@ namespace ModernWPFAppSample.ViewModel
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return !_fetching;
         }
 
         public async void Execute(object parameter)
         {
+            _fetching = true;
+            RaiseCanExecuteChanged();
             var contents = await Task.Run(() => FetchRssAsync());
             foreach (var content in contents)
             {
                 _vm.Items.Add(content);
             }
+            _fetching = false;
+            RaiseCanExecuteChanged();
         }
 
         private Task<List<RSSViewModel.RSSContent>> FetchRssAsync()
