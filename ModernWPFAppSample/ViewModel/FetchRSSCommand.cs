@@ -13,7 +13,22 @@ namespace ModernWPFAppSample.ViewModel
     {
         private RSSViewModel _vm;
 
+        public FetchRSSCommand(RSSViewModel vm)
+        {
+            _vm = vm;
+        }
+
+        #region ICommand
         private bool _fetching = false;
+        public bool Fetching
+        {
+            get { return _fetching; }
+            set
+            {
+                _fetching = value;
+                RaiseCanExecuteChanged();
+            }
+        }
 
         public event EventHandler CanExecuteChanged
         {
@@ -25,28 +40,22 @@ namespace ModernWPFAppSample.ViewModel
         {
             CommandManager.InvalidateRequerySuggested();
         }
-
-        public FetchRSSCommand(RSSViewModel vm)
-        {
-            _vm = vm;
-        }
+        #endregion
 
         public bool CanExecute(object parameter)
         {
-            return !_fetching;
+            return !Fetching;
         }
 
         public async void Execute(object parameter)
         {
-            _fetching = true;
-            RaiseCanExecuteChanged();
+            Fetching = true;
             var contents = await Task.Run(() => FetchRssAsync());
             foreach (var content in contents)
             {
                 _vm.Items.Add(content);
             }
-            _fetching = false;
-            RaiseCanExecuteChanged();
+            Fetching = false;
         }
 
         private Task<List<RSSViewModel.RSSContent>> FetchRssAsync()
