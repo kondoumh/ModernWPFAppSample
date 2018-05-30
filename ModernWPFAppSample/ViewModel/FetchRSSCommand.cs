@@ -9,9 +9,9 @@ using System.Xml;
 
 namespace ModernWPFAppSample.ViewModel
 {
-    class FetchRSSCommand : ICommand
+    internal class FetchRSSCommand : ICommand
     {
-        private RSSViewModel _vm;
+        private readonly RSSViewModel _vm;
 
         public FetchRSSCommand(RSSViewModel vm)
         {
@@ -19,7 +19,8 @@ namespace ModernWPFAppSample.ViewModel
         }
 
         #region ICommand
-        private bool _fetching = false;
+        private bool _fetching;
+
         public bool Fetching
         {
             get { return _fetching; }
