@@ -8,7 +8,7 @@
         Title="MainWindow" Height="528.088" Width="911.176">
     <Window.DataContext>
         <local:RSSViewModel x:Name="rssViewModel"
-                            Url="http://blog.kondoumh.com/feed"/>
+                            Url="https://blog.kondoumh.com/feed"/>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
