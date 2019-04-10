@@ -65,7 +65,7 @@ namespace ModernWPFAppSample.ViewModel
             {
                 var feed = SyndicationFeed.Load(reader);
                 _vm.Title = feed.Title.Text;
-                _vm.Description = feed.Description.Text;
+                _vm.Description = "This is temporary dummy descripion."; // feed.Description.Text;
                 _vm.LastUpdatedTime = feed.LastUpdatedTime.DateTime;
 
                 var result = (from f in feed.Items
